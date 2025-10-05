@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buat Cantikku</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #ffebf0;
+      overflow: hidden;
+      flex-direction: column;
+    }
+
+    h1 {
+      color: #e75480;
+      font-family: 'Arial', sans-serif;
+      font-size: 2em;
+      margin-top: 20px;
+      animation: fadeIn 2s ease-in-out infinite alternate;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0.6;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="heart"></canvas>
+  <h1>Cantikku, Neza ❤️</h1>
+
+  <script>
+    const canvas = document.getElementById('heart');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    function heartFunction(t) {
+      const x = 16 * Math.pow(Math.sin(t), 3);
+      const y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+      return { x, y };
+    }
+
+    function drawHeart() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#ff4d88';
+      for (let i = 0; i < 2000; i++) {
+        let t = Math.random() * Math.PI * 2;
+        let pos = heartFunction(t);
+        let x = canvas.width / 2 + pos.x * 20 + (Math.random() * 10 - 5);
+        let y = canvas.height / 2 + pos.y * 20 + (Math.random() * 10 - 5);
+        ctx.fillRect(x, y, 2, 2);
+      }
+    }
+
+    setInterval(drawHeart, 100);
+  </script>
+</body>
+</html>
